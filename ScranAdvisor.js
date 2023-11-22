@@ -19,13 +19,50 @@ ScranAdvisor.prototype.findRestaurantByTown = function(townName){
     return this.restaurants.filter((restaurant)=>{return restaurant.location.town===townName})
 }
 
-ScranAdvisor.prototype.findMostCommonCuisine=function(){
-    console.log(this.restaurants.map((restaurant)=> {restaurant.cuisine}))
+ScranAdvisor.prototype.mostCommonCuisine=function(){
+    // 
+    const cuisineCounts= {}
+
+    this.restaurants.forEach((restaurant) => {
+
+        restaurant.cuisines.forEach((cuisine)=>{
+
+            if (cuisineCounts[cuisine]!=undefined){
+            cuisineCounts[cuisine] = cuisineCounts[cuisine]+1}
+            else{
+                cuisineCounts[cuisine] = 1
+            }
+        })
+    })
+
+
+    // let mostCommonCuisine = Object.keys(cuisineCounts)[0]
+    // Object.keys(cuisineCounts).forEach((element)=>{
+    //     console.log(element);
+    //     if (cuisineCounts[element]>cuisineCounts[mostCommonCuisine]){
+    //         mostCommonCuisine = element
+    //         // mostCommon = element
+    //         console.log(mostCommonCuisine);
+    //     }
+    // })
+
+    mostCommonCuisine = Object.keys(cuisineCounts).reduce((accumulate,element)=> {
+        if (cuisineCounts[accumulate]>cuisineCounts[element]){
+            return accumulate
+        }
+        return element
+    })
+
+
+    return mostCommonCuisine
+
 }
 
-const restaurants = require('./restaurants.json')
-scranAdvisor = new ScranAdvisor(restaurants);
 
-scranAdvisor.findMostCommonCuisine()
+ScranAdvisor.prototype.findBySubstring = function(substring){
+    return this.restaurants.filter((restaurant)=>{
+        return restaurant.name.toLowerCase().includes(substring.toLowerCase())
+    })
+}
 
 module.exports = ScranAdvisor;

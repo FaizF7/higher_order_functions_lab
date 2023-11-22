@@ -124,12 +124,50 @@ describe('ScranAdvisor', () => {
 
     // Extensions
 
-    test.skip('can find the most common cuisine type', () => {
-
+    test('can find the most common cuisine type', () => {
+      expect(scranAdvisor.mostCommonCuisine()).toEqual("JAPANESE")
     })
 
-    test.skip('can find restaurant with substring', () => {
 
+    test('can find restaurant with substring', () => {
+
+      expected = [
+        {
+          id: 3,
+          name: 'The Brunch Club',
+          address: '67 Old Dumbarton Road',
+          postcode: 'G3 8RF',
+          website: 'https://www.thebrunchclub.co/',
+          cuisines: [ 'BRUNCH' ],
+          location: { id: 2, town: 'Glasgow', neighbourhood: 'West End' },
+          latitude: 55.867491696125064,
+          longitude: -4.293176500740617
+        },
+        {
+          id: 6,
+          name: "Rudy's Pizza",
+          address: 'Peter Street',
+          postcode: 'M2 5QJ',
+          website: 'https://www.rudyspizza.co.uk/pizzerias/peterst',
+          cuisines: [ 'PIZZA' ],
+          location: { id: 5, town: 'Manchester', neighbourhood: 'City Centre' },
+          latitude: 53.47842331842055,
+          longitude: -2.2474895790689655
+        },
+        {
+          id: 16,
+          name: 'Humble Crumble Camden',
+          address: 'Unit 739, Camden Market',
+          postcode: 'NW1 8AH',
+          website: 'https://www.humble-crumble.com/',
+          cuisines: [ 'SWEET' ],
+          location: { id: 13, town: 'London', neighbourhood: 'Camden' },
+          latitude: 51.54257526961926,
+          longitude: -0.1481973203643318
+        }
+      ]
+
+      expect(scranAdvisor.findBySubstring("ru")).toEqual(expected)
     })
 
 
