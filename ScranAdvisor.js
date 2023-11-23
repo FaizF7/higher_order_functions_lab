@@ -22,17 +22,30 @@ ScranAdvisor.prototype.findRestaurantByTown = function(townName){
 ScranAdvisor.prototype.mostCommonCuisine=function(){
     // new object
     const cuisineCounts= {}
+    let mostCommonCuisine = ""
 // for each restaurant in restaurants
     this.restaurants.forEach((restaurant) => {
 // for each cuisine in cuisines list of restaurant
         restaurant.cuisines.forEach((cuisine)=>{
 // Add one to count if it exists
-            if (cuisineCounts[cuisine]!=undefined){
-            cuisineCounts[cuisine] = cuisineCounts[cuisine]+1}
-            // if cuisine doesn't exist yet then add it and give it count 1
-            else{
-                cuisineCounts[cuisine] = 1
-            }
+            // if (cuisineCounts[cuisine]){
+            // cuisineCounts[cuisine] += 1}
+            // // if cuisine doesn't exist yet then add it and give it count 1
+            // else{
+            //     cuisineCounts[cuisine] = 1
+            // }
+
+            cuisineCounts[cuisine] = cuisineCounts[cuisine]?cuisineCounts[cuisine]+1:1
+            mostCommonCuisine = mostCommonCuisine?mostCommonCuisine:cuisine
+            mostCommonCuisine = cuisineCounts[mostCommonCuisine]<cuisineCounts[cuisine]?cuisine:mostCommonCuisine
+            // if (!mostCommonCuisine){
+            //     mostCommonCuisine=cuisine
+            // }
+            // if(cuisineCounts[mostCommonCuisine]<cuisineCounts[cuisine]){
+            //     mostCommonCuisine=cuisine
+            // }
+
+
         })
     })
 
@@ -46,13 +59,13 @@ ScranAdvisor.prototype.mostCommonCuisine=function(){
     //     }
     // })
 
-    mostCommonCuisine = Object.keys(cuisineCounts).reduce((largest,element)=> {
-        //return max(largest,element) for each element
-        if (cuisineCounts[largest]>cuisineCounts[element]){
-            return largest
-        }
-        return element
-    })
+    // mostCommonCuisine = Object.keys(cuisineCounts).reduce((largest,element)=> {
+    //     //return max(largest,element) for each element
+    //     if (cuisineCounts[largest]>cuisineCounts[element]){
+    //         return largest
+    //     }
+    //     return element
+    // })
 
     return mostCommonCuisine
 }
